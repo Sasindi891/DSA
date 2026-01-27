@@ -1,0 +1,35 @@
+public class MergeSort {
+
+    static void merge(int[] arr, int l, int m, int r) {
+        int[] left = new int[m - l + 1];
+        int[] right = new int[r - m];
+
+        for (int i = 0; i < left.length; i++)
+            left[i] = arr[l + i];
+        for (int j = 0; j < right.length; j++)
+            right[j] = arr[m + 1 + j];
+
+        int i = 0, j = 0, k = l;
+
+        while (i < left.length && j < right.length)
+            arr[k++] = (left[i] <= right[j]) ? left[i++] : right[j++];
+
+        while (i < left.length) arr[k++] = left[i++];
+        while (j < right.length) arr[k++] = right[j++];
+    }
+
+    static void sort(int[] arr, int l, int r) {
+        if (l < r) {
+            int m = (l + r) / 2;
+            sort(arr, l, m);
+            sort(arr, m + 1, r);
+            merge(arr, l, m, r);
+        }
+    }
+
+    public static void main(String[] args) {
+        int[] arr = {12, 11, 13, 5, 6};
+        sort(arr, 0, arr.length - 1);
+        for (int x : arr) System.out.print(x + " ");
+    }
+}
